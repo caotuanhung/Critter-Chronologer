@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
 
@@ -20,7 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    @Transactional
+    
     @Override
     public Employee save(Employee employee) {
         return employeeRepository.save(employee);
@@ -40,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return optionalEmployee.get();
     }
 
-    @Transactional
+    
     @Override
     public void updateAvailableDays(Long employeeId, Set<DayOfWeek> availableDays) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);

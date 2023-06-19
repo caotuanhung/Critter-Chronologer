@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final EmployeeRepository employeeRepository;
@@ -30,7 +31,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         this.customerRepository = customerRepository;
     }
 
-    @Transactional
+    
     @Override
     public Schedule save(Schedule schedule) {
         // Update schedule for employees.
@@ -66,7 +67,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.findAll();
     }
 
-    @Transactional
+    
     @Override
     public List<Schedule> findAllByEmployeeId(Long employeeId) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
@@ -85,7 +86,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return optionalPet.get().getSchedules();
     }
 
-    @Transactional
+    
     @Override
     public List<Schedule> findAllByCustomerId(Long customerId) {
         Optional<Customer> optionalCustomer = customerRepository.findById(customerId);

@@ -14,16 +14,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class PetServiceImpl implements PetService {
-    private PetRepository petRepository;
-    private CustomerRepository customerRepository;
+    private final PetRepository petRepository;
+    private final CustomerRepository customerRepository;
 
     public PetServiceImpl(PetRepository petRepository, CustomerRepository customerRepository) {
         this.petRepository = petRepository;
         this.customerRepository = customerRepository;
     }
 
-    @Transactional
     @Override
     public Pet save(Pet pet) {
         Optional<Customer> optionalCustomer = customerRepository.findById(pet.getCustomer().getId());

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final PetRepository petRepository;
@@ -27,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
      * @param customer Customer.
      * @return saved customer.
      */
-    @Transactional
+    
     @Override
     public Customer save(Customer customer) {
         return customerRepository.save(customer);
@@ -37,8 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
-
-    @Transactional
+    
     @Override
     public Customer findByPetId(Long petId) {
         Optional<Pet> optionalPet = petRepository.findById(petId);
@@ -46,6 +46,5 @@ public class CustomerServiceImpl implements CustomerService {
             throw new PetNotFoundException("Pet not found, id = ".concat(petId.toString()));
         }
         return customerRepository.findById(optionalPet.get().getCustomer().getId()).get();
-//        return customerRepository.findByPetId(petId).get();
     }
 }
